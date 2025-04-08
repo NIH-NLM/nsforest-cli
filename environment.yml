@@ -1,0 +1,13 @@
+# environment.yml
+name: nsforest
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - pytest
+  - pip
+  - pip:
+      - -e .
+

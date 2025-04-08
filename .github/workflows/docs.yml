@@ -1,0 +1,63 @@
+name: Build and Deploy Sphinx Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-activate-base: false
+
+      - name: Create and activate environment
+        shell: "bash -l {0}"
+        run: |
+          conda env create -f environment.yml
+          conda activate "nsforest"
+          python -m pip install myst-parser sphinx
+
+      - name: Generate Sphinx docs
+        shell: "bash -l {0}"
+        run: |
+          conda activate "nsforest"
+          sphinx-apidoc -f --separate -o docs/source/ src/nsforest
+          make -C docs html
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/build/html
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: "https://nih-nlm.github.io/nsforest-cli"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
