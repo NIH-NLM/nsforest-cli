@@ -4,7 +4,7 @@ A command-line bioinformatics tool scaffolded using [template-python](https://gi
 
 ---
 
-## 🛠 Features
+## Features
 
 - Python 3.11
 - Typer-powered CLI
@@ -14,7 +14,7 @@ A command-line bioinformatics tool scaffolded using [template-python](https://gi
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Install via Conda or use Docker:
 
@@ -28,7 +28,7 @@ docker run -it nsforest
 
 ---
 
-## 💡 CLI Usage
+## CLI Usage
 
 ```bash
 nsforest --help
