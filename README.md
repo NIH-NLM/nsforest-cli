@@ -36,7 +36,7 @@ nsforest --help
 
 ---
 
-## 🧪 Run Tests
+## Run Tests
 
 ```bash
 pytest tests/
@@ -44,7 +44,7 @@ pytest tests/
 
 ---
 
-## 📄 License
+## License
 
 MIT License © NIH/NLM
 
